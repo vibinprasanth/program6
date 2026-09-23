@@ -1,0 +1,27 @@
+name: Linux Firewall Autograding
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout student repository
+        uses: actions/checkout@v4
+
+      - name: Install Bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bash
+
+      - name: Make test scripts executable
+        run: |
+          chmod +x autograding/run_tests.sh
+          chmod +x test_cases/test_firewall_check.sh
+
+      - name: Run autograding
+        run: |
+          ./autograding/run_tests.sh
